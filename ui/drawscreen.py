@@ -93,11 +93,11 @@ def drawguideline(screen : pygame.Surface) -> None:
             raise DrawError("尝试计算辅助线时出错")
         try:
             if abs(nowx-verticallinex) < nowGLSD and verticallinenode and inscreen(*databasexytoscreenxy(verticallinenode.x, verticallinenode.y)):
-                pygame.draw.line(screen, (0, 0, 0), (verticallinex, 0), (verticallinex, getheight()), 3)
+                pygame.draw.line(screen, (0, 255, 255), (verticallinex, 0), (verticallinex, getheight()), 2)
             else:
                 verticallinenode = None
             if abs(nowy-horizontalliney) < nowGLSD and horizontallinenode and inscreen(*databasexytoscreenxy(horizontallinenode.x, horizontallinenode.y)):
-                pygame.draw.line(screen, (0, 0, 0), (0, horizontalliney), (getwidth(), horizontalliney), 3)
+                pygame.draw.line(screen, (0, 255, 255), (0, horizontalliney), (getwidth(), horizontalliney), 2)
             else:
                 horizontallinenode = None
         except:

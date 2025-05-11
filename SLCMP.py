@@ -59,8 +59,8 @@ def main():
 
         screen.fill(hex_to_rgb(getbgcolor()))
         drawalllines(screen)
-        drawallnodes(screen)
         drawguideline(screen)
+        drawallnodes(screen)
         puttoollist(screen)
         
         pygame.display.flip()
