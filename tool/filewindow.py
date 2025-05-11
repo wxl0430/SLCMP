@@ -23,3 +23,6 @@ def warningbox(message :  str, title : str = "警告") -> str:
 
 def errorbox(message :  str, title : str = "错误") -> str: 
     return tkinter.messagebox.showerror(title=title,message=message)
+
+def questionbox(message :  str, title : str = "询问") -> str: 
+    return tkinter.messagebox.askyesnocancel(title=title,message=message)

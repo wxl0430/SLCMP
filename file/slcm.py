@@ -30,18 +30,30 @@ def makeslcmprojectfile(output_file : str = "") -> None:
         },1)
         packzip(tmp_path,output_file)
         shutil.rmtree(tmp_path)
+        setsaved(True)
     except:
         raise SLCMProjectFileError("生成项目文件时出错")
 
 def openslcmprojectfile(input_file : str) -> None:
-    tmp_path = os.path.dirname(input_file)+"/"+new_id("SLCM_tmp_",remember=0)
-    unpackzip(input_file,tmp_path)
-    data_path = tmp_path+"/data/"
-    maindata = read_json(data_path+"maindata.json",1)
-    data_from_json_dict(maindata)
-    idlist = read_json(data_path+"idlist.json",1)["idlist"]
-    set_id_list(idlist)
-    main = read_json(data_path+"main.json",1)
-    setscreenpos((main["screenx"],main["screeny"]))
-    setscaling(main["scaling"])
-    shutil.rmtree(tmp_path)
+    try:
+        tmp_path = os.path.dirname(input_file)+"/"+new_id("SLCM_tmp_",remember=0)
+        unpackzip(input_file,tmp_path)
+        data_path = tmp_path+"/data/"
+        maindata = read_json(data_path+"maindata.json",1)
+        data_from_json_dict(maindata)
+        idlist = read_json(data_path+"idlist.json",1)["idlist"]
+        set_id_list(idlist)
+        main = read_json(data_path+"main.json",1)
+        setscreenpos((main["screenx"],main["screeny"]))
+        setscaling(main["scaling"])
+        shutil.rmtree(tmp_path)
+        setsaved(True)
+    except:
+        raise SLCMProjectFileError("打开项目文件时出错")
+
+def newslcmprojectfile() -> None:
+    setdataall({"node":[],"line":[]})
+    set_id_list([])
+    setscreenpos((int(getwidth()/2),int(getheight()/2)))
+    setscaling(100)
+    setsaved(True)

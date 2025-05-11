@@ -8,7 +8,7 @@ if 'nowtouching' not in globals():
 
 def init_database(window_settings : dict) -> None:
     global bgcolor, data, screenx, screeny, scaling, built_in_scaling, step_size, step_size_coefficient, keep_not_move_tick, mousewheel_speed
-    global scaling_step_size, width, height, guide_line_scan_distance, projectsavepath
+    global scaling_step_size, width, height, guide_line_scan_distance, projectsavepath, saved
     bgcolor = "#ffffff"
     data = {"node":[],"line":[]}
     width = window_settings["width"]
@@ -24,6 +24,14 @@ def init_database(window_settings : dict) -> None:
     mousewheel_speed = window_settings["mousewheel_speed"]
     scaling_step_size  = window_settings["scaling_step_size"]
     projectsavepath = ""
+    saved = True
+
+def getsaved() -> bool:
+    return saved
+
+def setsaved(new_saved : bool) -> None:
+    global saved
+    saved = new_saved
 
 def getprojectsavepath() -> str:
     return projectsavepath
@@ -134,7 +142,8 @@ def newdatavalue(key : str) -> None:
         data[key] = []
 
 def adddata(key : str, value) -> None:
-    global data
+    global data,saved
+    saved = False
     if key in data:
         data[key].append(value)
     else:
@@ -144,7 +153,8 @@ def getdata() -> dict:
     return data
 
 def deldata(key : str, idvalue) -> None:
-    global data
+    global data,saved
+    saved = False
     if key in data:
         for i in data[key]:
             if i.id == idvalue:
@@ -152,11 +162,13 @@ def deldata(key : str, idvalue) -> None:
                 break
 
 def setdata(key : str, value) -> None:
-    global data
+    global data,saved
+    saved = False
     data[key] = value
 
 def setdataall(new_data : dict) -> None:
-    global data
+    global data,saved
+    saved = False
     data = new_data
 
 def getnowscaling() -> int:
