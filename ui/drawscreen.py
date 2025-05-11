@@ -71,7 +71,7 @@ def drawalllines(screen : pygame.Surface) -> None:
     
 def drawguideline(screen : pygame.Surface) -> None:
     global horizontallinenode, verticallinenode
-    if nowtouching.type == "NewNode":
+    if nowtouching.type == "NewNode" or nowtouching.type == "Node":
         try:
             horizontalliney = 0
             horizontallinenode = None
@@ -82,13 +82,14 @@ def drawguideline(screen : pygame.Surface) -> None:
             nowx,nowy = pygame.mouse.get_pos()
             nowdata = getdata()
             for i in nowdata["node"]:
-                x, y = databasexytoscreenxy(i.x, i.y)
-                if abs(x-nowx) < abs(nowx-verticallinex):
-                    verticallinex = x
-                    verticallinenode = i
-                if abs(y-nowy) < abs(nowy-horizontalliney):
-                    horizontalliney = y
-                    horizontallinenode = i
+                if nowtouching.type=="NewNode" or ( i.id != nowtouching.args["id"] and nowtouching.type=="Node"):
+                    x, y = databasexytoscreenxy(i.x, i.y)
+                    if abs(x-nowx) < abs(nowx-verticallinex):
+                        verticallinex = x
+                        verticallinenode = i
+                    if abs(y-nowy) < abs(nowy-horizontalliney):
+                        horizontalliney = y
+                        horizontallinenode = i
         except:
             raise DrawError("尝试计算辅助线时出错")
         try:

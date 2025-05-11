@@ -132,7 +132,7 @@ def handle_event(screen : pygame.Surface) -> None:
         if event.type == pygame.MOUSEBUTTONUP:
             mousedown=0
             if nowtouching.type=="Node":
-                nowxy=screenxytodatabasexy(event.pos[0],event.pos[1])
+                nowxy=getHVxy()
                 adddoing({"type":"MoveNode","id":nowtouching.args["id"],"fromx":nowtouching.args["fromx"],"fromy":nowtouching.args["fromy"],"tox":nowxy[0],"toy":nowxy[1]})
                 setsaved(False)
                 nowtouching.type="None"
@@ -144,7 +144,7 @@ def handle_event(screen : pygame.Surface) -> None:
                 if nowtouching.type=="None":
                     movescreen(event.rel[0],event.rel[1])
                 elif nowtouching.type=="Node":
-                    findnode(nowtouching.args["id"]).setxy(*screenxytodatabasexy(event.pos[0],event.pos[1]))
+                    findnode(nowtouching.args["id"]).setxy(*getHVxy())
                     setsaved(False)
 
     for i in range(4):
