@@ -2,6 +2,10 @@ import pygame
 from tool.database import *
 from type.node import *
 from ui.drawscreen import *
+from tool.filewindow import *
+from file.slcm import *
+import os
+
 def init_doing() -> None:
     global doinglist, undolist
     doinglist=[]
@@ -70,3 +74,52 @@ def redo () -> None:
             nowmovenode.setxy(undolist[-1]["tox"],undolist[-1]["toy"])
             doinglist.append(undolist[-1])
             del undolist[-1]
+
+def saveslcm() -> bool:
+    if getprojectsavepath()=="":
+        savepath=filesavewindow("保存项目文件",[("SLCM文件项目","*.slcm")],".slcm")
+        if savepath:
+            setprojectsavepath(savepath)
+            makeslcmprojectfile(savepath)
+            messagebox("保存成功","保存成功")
+            return True
+        else:
+            warningbox("未选择目录","保存失败")
+            return False
+    else:
+        makeslcmprojectfile(getprojectsavepath())
+        messagebox("保存成功","保存成功")
+        return True
+
+def saveasslcm() -> bool:
+    savepath=filesavewindow("另存为项目文件",[("SLCM文件项目","*.slcm")],".slcm")   
+    if savepath:
+        setprojectsavepath(savepath)
+        makeslcmprojectfile(savepath)
+        messagebox("另存为成功","另存为成功")
+        return True
+    else:
+        warningbox("未选择目录","另存为失败")
+        return False
+
+def openslcm() -> None:
+    openpath=fileopenwindow("打开项目文件",[("SLCM文件项目","*.slcm")],".slcm")
+    if openpath:
+        if os.path.exists(openpath):
+            openslcmprojectfile(openpath)
+            setprojectsavepath(openpath)
+        else:
+            errorbox("文件不存在","文件不存在")
+    else:
+        warningbox("未选择文件","打开失败")
+
+def newslcm() -> None:
+    if not getsaved():
+        res=questionbox("是否保存当前项目？","新建项目")
+        if res==True:
+            if saveslcm():
+                newslcmprojectfile()
+        elif res==False:
+            newslcmprojectfile()
+    else:
+        newslcmprojectfile()

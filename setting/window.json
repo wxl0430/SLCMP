@@ -35,6 +35,60 @@
             "height":70,
             "doing":"import tool.doing\ntool.doing.newline()",
             "display":true
+        },
+        {
+            "name":"undo.png",
+            "x":95,
+            "y":10,
+            "width":20,
+            "height":20,
+            "doing":"import tool.doing\ntool.doing.undo()",
+            "display":true
+        },
+        {
+            "name":"redo.png",
+            "x":125,
+            "y":10,
+            "width":20,
+            "height":20,
+            "doing":"import tool.doing\ntool.doing.redo()",
+            "display":true
+        },
+        {
+            "name":"new.png",
+            "x":155,
+            "y":10,
+            "width":20,
+            "height":20,
+            "doing":"import tool.doing\ntool.doing.newslcm()",
+            "display":true
+        },
+        {
+            "name":"open.png",
+            "x":185,
+            "y":10,
+            "width":20,
+            "height":20,
+            "doing":"import tool.doing\ntool.doing.openslcm()",
+            "display":true
+        },
+        {
+            "name":"save.png",
+            "x":215,
+            "y":10,
+            "width":20,
+            "height":20,
+            "doing":"import tool.doing\ntool.doing.saveslcm()",
+            "display":true
+        },
+        {
+            "name":"saveas.png",
+            "x":245,
+            "y":10,
+            "width":20,
+            "height":20,
+            "doing":"import tool.doing\ntool.doing.saveasslcm()",
+            "display":true
         }
         
     ]

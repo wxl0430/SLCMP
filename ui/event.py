@@ -67,35 +67,12 @@ def handle_event(screen : pygame.Surface) -> None:
                     redo()
             if event.key == pygame.K_s:
                 if ctrldown and shiftdown:
-                    savepath=filesavewindow("另存为项目文件",[("SLCM文件项目","*.slcm")],".slcm")   
-                    if savepath:
-                        setprojectsavepath(savepath)
-                        makeslcmprojectfile(savepath)
-                        messagebox("另存为成功","另存为成功")
-                    else:
-                        warningbox("未选择目录","另存为失败")
+                    saveasslcm()
                 elif ctrldown:
-                    if getprojectsavepath()=="":
-                        savepath=filesavewindow("保存项目文件",[("SLCM文件项目","*.slcm")],".slcm")
-                        if savepath:
-                            setprojectsavepath(savepath)
-                            makeslcmprojectfile(savepath)
-                            messagebox("保存成功","保存成功")
-                        else:
-                            warningbox("未选择目录","保存失败")
-                    else:
-                        makeslcmprojectfile(getprojectsavepath())
-                        messagebox("保存成功","保存成功")
+                    saveslcm()
             if event.key == pygame.K_o:
                 if ctrldown:
-                    openpath=fileopenwindow("打开项目文件",[("SLCM文件项目","*.slcm")],".slcm")
-                    if openpath:
-                        if os.path.exists(openpath):
-                            openslcmprojectfile(openpath)
-                        else:
-                            errorbox("文件不存在","文件不存在")
-                    else:
-                        warningbox("未选择文件","打开失败")
+                    openslcm()
                     
         if event.type == pygame.MOUSEWHEEL:
             if event.precise_x==0.0 and event.precise_y==1.0:
