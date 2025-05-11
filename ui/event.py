@@ -26,8 +26,9 @@ def handle_event(screen : pygame.Surface) -> None:
     for event in pygame.event.get():
         # print(event)
         if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+            if questionsave():
+                pygame.quit()
+                exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 movescreenkeylist[0]=nowkeepnotmovetick
@@ -55,16 +56,20 @@ def handle_event(screen : pygame.Surface) -> None:
                 shiftdown=0
             if event.key == pygame.K_n:
                 newnode()
+                setsaved(False)
             if event.key == pygame.K_l:
                 newline()
+                setsaved(False)
             if event.key == pygame.K_LCTRL:
                 ctrldown=0
             if event.key == pygame.K_z:
                 if ctrldown:
                     undo()
+                    setsaved(False)
             if event.key == pygame.K_y:
                 if ctrldown:
                     redo()
+                    setsaved(False)
             if event.key == pygame.K_s:
                 if ctrldown and shiftdown:
                     saveasslcm()
@@ -77,8 +82,10 @@ def handle_event(screen : pygame.Surface) -> None:
         if event.type == pygame.MOUSEWHEEL:
             if event.precise_x==0.0 and event.precise_y==1.0:
                 addscaling(nowscalingstepsize)
+                setsaved(False)
             elif event.precise_x==0.0 and event.precise_y==-1.0:
                 addscaling(-nowscalingstepsize)
+                setsaved(False)
             else:
                 movescreen(-int(event.precise_x*nowmousewheelspeed),int(event.precise_y*nowmousewheelspeed))
 
@@ -92,11 +99,13 @@ def handle_event(screen : pygame.Surface) -> None:
                 if posx>=nowrect[0] and posx<=nowrect[2] and posy>=nowrect[1] and posy<=nowrect[3]:
                     # print(Cdata[i]["name"])
                     exec(Cdata[i]["doing"])
+                    setsaved(False)
                     flag=0
                     break
             if flag:
                 if nowtouching.type=="NewNode":
                     newnodenow()
+                    setsaved(False)
                 elif nowtouching.type=="NewLine":
                     if nowtouching.args["count"]<2:
                         nowpos=screenxytodatabasexy(event.pos[0],event.pos[1])
@@ -111,11 +120,13 @@ def handle_event(screen : pygame.Surface) -> None:
                                 nowtouching.args["to_id"]=touchnode.id
                     if nowtouching.args["count"]==2:
                         newlinenow()
+                    setsaved(False)
                 else:
                     touchnode = findnodebyxy(*screenxytodatabasexy(event.pos[0],event.pos[1]),15/nowscaling)
                     if touchnode:
                         nowtouching.type="Node"
                         nowtouching.args={"id":touchnode.id,"fromx":touchnode.x,"fromy":touchnode.y}
+                        setsaved(False)
                 mousedown=1
 
         if event.type == pygame.MOUSEBUTTONUP:
@@ -123,6 +134,7 @@ def handle_event(screen : pygame.Surface) -> None:
             if nowtouching.type=="Node":
                 nowxy=screenxytodatabasexy(event.pos[0],event.pos[1])
                 adddoing({"type":"MoveNode","id":nowtouching.args["id"],"fromx":nowtouching.args["fromx"],"fromy":nowtouching.args["fromy"],"tox":nowxy[0],"toy":nowxy[1]})
+                setsaved(False)
                 nowtouching.type="None"
                 nowtouching.args={}
                 
@@ -133,6 +145,7 @@ def handle_event(screen : pygame.Surface) -> None:
                     movescreen(event.rel[0],event.rel[1])
                 elif nowtouching.type=="Node":
                     findnode(nowtouching.args["id"]).setxy(*screenxytodatabasexy(event.pos[0],event.pos[1]))
+                    setsaved(False)
 
     for i in range(4):
         if movescreenkeylist[i]==nowkeepnotmovetick or movescreenkeylist[i]==1:

@@ -123,3 +123,16 @@ def newslcm() -> None:
             newslcmprojectfile()
     else:
         newslcmprojectfile()
+
+def questionsave() -> bool: #此处的True表示退出，False表示不退出，与保存与否无关
+    if not getsaved():
+        res=questionbox("是否保存当前项目？","新建项目")
+        if res==True:
+            if saveslcm():
+                return True
+            return False
+        elif res==False:
+            return True
+        return False
+    else:
+        return True
