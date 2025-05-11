@@ -82,22 +82,23 @@ def drawguideline(screen : pygame.Surface) -> None:
             nowx,nowy = pygame.mouse.get_pos()
             nowdata = getdata()
             for i in nowdata["node"]:
-                if nowtouching.type=="NewNode" or ( i.id != nowtouching.args["id"] and nowtouching.type=="Node"):
-                    x, y = databasexytoscreenxy(i.x, i.y)
-                    if abs(x-nowx) < abs(nowx-verticallinex):
-                        verticallinex = x
-                        verticallinenode = i
-                    if abs(y-nowy) < abs(nowy-horizontalliney):
-                        horizontalliney = y
-                        horizontallinenode = i
+                if inscreen(*databasexytoscreenxy(i.x, i.y)):
+                    if nowtouching.type=="NewNode" or ( i.id != nowtouching.args["id"] and nowtouching.type=="Node"):
+                        x, y = databasexytoscreenxy(i.x, i.y)
+                        if abs(x-nowx) < abs(nowx-verticallinex):
+                            verticallinex = x
+                            verticallinenode = i
+                        if abs(y-nowy) < abs(nowy-horizontalliney):
+                            horizontalliney = y
+                            horizontallinenode = i
         except:
             raise DrawError("尝试计算辅助线时出错")
         try:
-            if abs(nowx-verticallinex) < nowGLSD and verticallinenode and inscreen(*databasexytoscreenxy(verticallinenode.x, verticallinenode.y)):
+            if abs(nowx-verticallinex) < nowGLSD and verticallinenode:
                 pygame.draw.line(screen, (0, 255, 255), (verticallinex, 0), (verticallinex, getheight()), 2)
             else:
                 verticallinenode = None
-            if abs(nowy-horizontalliney) < nowGLSD and horizontallinenode and inscreen(*databasexytoscreenxy(horizontallinenode.x, horizontallinenode.y)):
+            if abs(nowy-horizontalliney) < nowGLSD and horizontallinenode:
                 pygame.draw.line(screen, (0, 255, 255), (0, horizontalliney), (getwidth(), horizontalliney), 2)
             else:
                 horizontallinenode = None
