@@ -3,7 +3,7 @@ from tool.image.png import *
 import os
 from file.json import *
 
-def init_toollist():
+def init_drawui():
     global images,imgdata,imgcwd,cwd
     cwd = os.getcwd() + "/"
     imgcwd = cwd + "image/"
@@ -35,3 +35,6 @@ def getimgdata() -> list:
 def setimgdata(newimgdata: list) -> None:
     global imgdata
     imgdata=newimgdata
+
+def drawui(screen):
+    puttoollist(screen)

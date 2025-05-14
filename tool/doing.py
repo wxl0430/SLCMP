@@ -1,8 +1,8 @@
 import pygame
 from tool.database import *
 from type.node import *
-from ui.drawscreen import *
-from tool.filewindow import *
+from body.drawscreen import *
+from tool.tkwindow import *
 from file.slcm import *
 import os
 
@@ -126,7 +126,7 @@ def newslcm() -> None:
 
 def questionsave() -> bool: #此处的True表示退出，False表示不退出，与保存与否无关
     if not getsaved():
-        res=questionbox("是否保存当前项目？","新建项目")
+        res=questionbox("是否保存当前项目？","保存项目")
         if res==True:
             if saveslcm():
                 return True

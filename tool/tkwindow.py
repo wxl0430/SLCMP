@@ -2,7 +2,7 @@ import tkinter
 import tkinter.filedialog
 import tkinter.messagebox
 
-def init_filewindow():
+def init_tkwindow():
     global root
     root = tkinter.Tk()
     root.withdraw()

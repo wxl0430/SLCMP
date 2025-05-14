@@ -1,11 +1,11 @@
 import pygame
 from type.touching import *
-from ui.toollist import *
 from tool.doing import *
 from tool.database import *
 from type.touching import *
+from body.drawui import *
 from tool.xyconverter import *
-from tool.filewindow import *
+from tool.tkwindow import *
 from file.slcm import *
 
 def init_event():

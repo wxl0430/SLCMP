@@ -6,15 +6,14 @@ from tool.color import *
 from tool.doing import *
 from tool.id import *
 from tool.xyconverter import *
-from tool.filewindow import *
+from tool.tkwindow import *
 from tool.image.icon import *
 from tool.image.png import *
 from file.json import *
 from file.zip import *
-from ui.toollist import *
-from ui.event import *
-from ui.drawscreen import *
-from ui.drawui import *
+from body.event import *
+from body.drawscreen import *
+from body.drawui import *
 import pygame
 import time
 
@@ -37,12 +36,12 @@ def main():
     strat_time = time.time()
     fps_sum = 0 
 
-    init_toollist()
+    init_drawui()
     init_event()
     init_database(window_settings)
     init_doing()
     init_draw()
-    init_filewindow()
+    init_tkwindow()
 
 
     running = True
@@ -61,7 +60,7 @@ def main():
         drawalllines(screen)
         drawguideline(screen)
         drawallnodes(screen)
-        puttoollist(screen)
+        drawui(screen)
         
         pygame.display.flip()
 
