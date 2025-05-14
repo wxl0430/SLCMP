@@ -65,11 +65,9 @@ def handle_event(screen : pygame.Surface) -> None:
             if event.key == pygame.K_z:
                 if ctrldown:
                     undo()
-                    setsaved(False)
             if event.key == pygame.K_y:
                 if ctrldown:
                     redo()
-                    setsaved(False)
             if event.key == pygame.K_s:
                 if ctrldown and shiftdown:
                     saveasslcm()
@@ -99,7 +97,6 @@ def handle_event(screen : pygame.Surface) -> None:
                 if posx>=nowrect[0] and posx<=nowrect[2] and posy>=nowrect[1] and posy<=nowrect[3]:
                     # print(Cdata[i]["name"])
                     exec(Cdata[i]["doing"])
-                    setsaved(False)
                     flag=0
                     break
             if flag:
@@ -120,7 +117,7 @@ def handle_event(screen : pygame.Surface) -> None:
                                 nowtouching.args["to_id"]=touchnode.id
                     if nowtouching.args["count"]==2:
                         newlinenow()
-                    setsaved(False)
+                        setsaved(False)
                 else:
                     touchnode = findnodebyxy(*screenxytodatabasexy(event.pos[0],event.pos[1]),15/nowscaling)
                     if touchnode:

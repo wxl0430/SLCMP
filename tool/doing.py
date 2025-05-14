@@ -44,6 +44,7 @@ def adddoing(msg : dict) -> None:
 def undo () -> None:
     global doinglist,undolist
     if doinglist:
+        setsaved(False)
         if doinglist[-1]["type"]=="NewNode":
             deldata("node",doinglist[-1]["node"].id)
             undolist.append(doinglist[-1])
@@ -61,6 +62,7 @@ def undo () -> None:
 def redo () -> None:
     global doinglist,undolist
     if undolist:
+        setsaved(False)
         if undolist[-1]["type"]=="NewNode":
             adddata("node",undolist[-1]["node"])
             doinglist.append(undolist[-1])
