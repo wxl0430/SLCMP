@@ -98,7 +98,6 @@ def handle_event(screen : pygame.Surface) -> None:
             for i in range(len(Cdata)-1,-1,-1):
                 nowrect=[Cdata[i]["x"],Cdata[i]["y"],Cdata[i]["x"]+Cdata[i]["width"],Cdata[i]["y"]+Cdata[i]["height"]]
                 if posx>=nowrect[0] and posx<=nowrect[2] and posy>=nowrect[1] and posy<=nowrect[3]:
-                    # print(Cdata[i]["name"])
                     exec(Cdata[i]["doing"])
                     flag=0
                     break
@@ -135,8 +134,13 @@ def handle_event(screen : pygame.Surface) -> None:
                 nowxy=getHVxy()
                 adddoing({"type":"MoveNode","id":nowtouching.args["id"],"fromx":nowtouching.args["fromx"],"fromy":nowtouching.args["fromy"],"tox":nowxy[0],"toy":nowxy[1]})
                 setsaved(False)
-                nowtouching.type="None"
-                nowtouching.args={}
+                if not findnodebyxy(*screenxytodatabasexy(*pygame.mouse.get_pos()),15/nowscaling) and (not "Edit" in nowtouching.args):
+                    nowtouching.type="None"
+                    nowtouching.args={}
+                try:
+                    del nowtouching.args["Edit"]
+                except:
+                    pass
                 
 
         if event.type == pygame.MOUSEMOTION:
