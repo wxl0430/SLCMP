@@ -1,6 +1,7 @@
 import pygame
 from tool.image.png import *
 from tool.xyconverter import *
+from tool.stringconverter import *
 import os
 from file.json import *
 
@@ -23,8 +24,8 @@ def init_drawui():
 \ /
 '''
 
-def drawtext(screen,text : str,x : int,y : int,size : int,color : tuple,topplace : str = "center") -> None:
-    font = pygame.font.Font(None, size)
+def drawtext(screen, text : str, x : int, y : int, size : int, color : tuple, topplace : str = "center",fontname : str = "Consolas") -> None:
+    font = pygame.font.SysFont(fontname, size)
     text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect()
     if topplace == "center":
@@ -33,11 +34,15 @@ def drawtext(screen,text : str,x : int,y : int,size : int,color : tuple,topplace
         text_rect.topleft = (x, y)
     elif topplace == "topright":
         text_rect.topright = (x, y)
+    elif topplace == "bottomleft":
+        text_rect.bottomleft = (x, y)
+    elif topplace == "bottomright":
+        text_rect.bottomright = (x, y)
     screen.blit(text_surface, text_rect)
 
 def drawalltext(screen : pygame.Surface) -> None:
     nowxy=screenxytodatabasexy(*pygame.mouse.get_pos())
-    drawtext(screen,"x:"+str(nowxy[0])+" y:"+str(nowxy[1]),280,13,25,(200,200,200),"topleft")
+    drawtext(screen,"x:"+stringsetlength(str(nowxy[0]),6)+"|y:"+stringsetlength(str(nowxy[1]),6)+"|SC:"+stringsetlength(str(int(getscaling()))+"%",6),1795,1000,20,(160,160,160),"bottomright")
 
 def puttoollist(screen : pygame.Surface) -> None:
     try:
