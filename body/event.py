@@ -20,6 +20,7 @@ def handle_event(screen : pygame.Surface) -> None:
     nowstepsize=getstepsize()
     nowstepsize=getstepsize()
     nowscaling = getnowscaling()
+    nowscalingF = getscaling()
     nowkeepnotmovetick=getkeepnotmovetick() 
     nowmousewheelspeed=getmousewheelspeed()
     nowscalingstepsize=getscalingstepsize()
@@ -79,11 +80,13 @@ def handle_event(screen : pygame.Surface) -> None:
                     
         if event.type == pygame.MOUSEWHEEL:
             if event.precise_x==0.0 and event.precise_y==1.0:
-                addscaling(nowscalingstepsize)
-                setsaved(False)
+                if nowscalingF < 500:
+                    addscaling(nowscalingstepsize)
+                    setsaved(False)
             elif event.precise_x==0.0 and event.precise_y==-1.0:
-                addscaling(-nowscalingstepsize)
-                setsaved(False)
+                if nowscalingF > 10:
+                    addscaling(-nowscalingstepsize)
+                    setsaved(False)
             else:
                 movescreen(-int(event.precise_x*nowmousewheelspeed),int(event.precise_y*nowmousewheelspeed))
 

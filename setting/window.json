@@ -3,7 +3,7 @@
     "width": 1800,
     "title": "地铁配线图绘制器（Subway Line Configuration Map Printer）",
     "built_in_scaling": 10,
-    "scaling_step_size": 20,
+    "scaling_step_size": 10,
     "step_size_coefficient":0.2,
     "keep_not_move_tick":10,
     "mousewheel_speed":10,

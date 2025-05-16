@@ -171,7 +171,7 @@ def setdataall(new_data : dict) -> None:
     saved = False
     data = new_data
 
-def getnowscaling() -> int:
+def getnowscaling() -> float:
     return scaling * built_in_scaling / 100
 
 def setscaling(new_scaling : int) -> None:
