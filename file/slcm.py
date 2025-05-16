@@ -1,7 +1,7 @@
 from file.json import *
 from file.zip import *
 from tool.database import *
-from tool.doing import *
+from tool.doing import cleardoing
 from tool.id import *
 import os
 import shutil
@@ -48,6 +48,7 @@ def openslcmprojectfile(input_file : str) -> None:
         setscaling(main["scaling"])
         shutil.rmtree(tmp_path)
         setsaved(True)
+        cleardoing()
     except:
         raise SLCMProjectFileError("打开项目文件时出错")
 
@@ -57,3 +58,4 @@ def newslcmprojectfile() -> None:
     setscreenpos((int(getwidth()/2),int(getheight()/2)))
     setscaling(100)
     setsaved(True)
+    cleardoing()

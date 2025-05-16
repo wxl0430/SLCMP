@@ -3,11 +3,15 @@ from tool.database import *
 from type.node import *
 from body.drawscreen import *
 from tool.tkwindow import *
-from file.slcm import *
 import os
 
 def init_doing() -> None:
     global doinglist, undolist
+    doinglist=[]
+    undolist=[]
+
+def cleardoing() -> None:
+    global doinglist,undolist
     doinglist=[]
     undolist=[]
 
@@ -138,3 +142,5 @@ def questionsave() -> bool: #此处的True表示退出，False表示不退出，
         return False
     else:
         return True
+    
+from file.slcm import makeslcmprojectfile,openslcmprojectfile,newslcmprojectfile
