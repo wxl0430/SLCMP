@@ -16,7 +16,7 @@
             "width":90,
             "height":1000,
             "doing":"pass",
-            "display":true
+            "display":"true"
         },
         {
             "name":"NodeTool.png",
@@ -25,7 +25,7 @@
             "width":70,
             "height":70,
             "doing":"import tool.doing\ntool.doing.newnode()",
-            "display":true
+            "display":"true"
         },
         {
             "name":"LineTool.png",
@@ -34,7 +34,16 @@
             "width":70,
             "height":70,
             "doing":"import tool.doing\ntool.doing.newline()",
-            "display":true
+            "display":"true"
+        },
+        {
+            "name":"Edit.png",
+            "x":10,
+            "y":900,
+            "width":70,
+            "height":70,
+            "doing":"import tool.doing\ntool.doing.edit()",
+            "display":["touching","Node"]
         },
         {
             "name":"undo.png",
@@ -43,7 +52,7 @@
             "width":20,
             "height":20,
             "doing":"import tool.doing\ntool.doing.undo()",
-            "display":true
+            "display":"true"
         },
         {
             "name":"redo.png",
@@ -52,7 +61,7 @@
             "width":20,
             "height":20,
             "doing":"import tool.doing\ntool.doing.redo()",
-            "display":true
+            "display":"true"
         },
         {
             "name":"new.png",
@@ -61,7 +70,7 @@
             "width":20,
             "height":20,
             "doing":"import tool.doing\ntool.doing.newslcm()",
-            "display":true
+            "display":"true"
         },
         {
             "name":"open.png",
@@ -70,7 +79,7 @@
             "width":20,
             "height":20,
             "doing":"import tool.doing\ntool.doing.openslcm()",
-            "display":true
+            "display":"true"
         },
         {
             "name":"save.png",
@@ -79,7 +88,7 @@
             "width":20,
             "height":20,
             "doing":"import tool.doing\ntool.doing.saveslcm()",
-            "display":true
+            "display":"true"
         },
         {
             "name":"saveas.png",
@@ -88,7 +97,7 @@
             "width":20,
             "height":20,
             "doing":"import tool.doing\ntool.doing.saveasslcm()",
-            "display":true
+            "display":"true"
         }
         
     ]

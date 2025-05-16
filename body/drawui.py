@@ -2,6 +2,7 @@ import pygame
 from tool.image.png import *
 from tool.xyconverter import *
 from tool.stringconverter import *
+from tool.database import *
 import os
 from file.json import *
 
@@ -53,8 +54,11 @@ def drawalltext(screen : pygame.Surface) -> None:
 def puttoollist(screen : pygame.Surface) -> None:
     try:
         for i in range(len(images)):
-            if imgdata[i]["display"]:
+            if imgdata[i]["display"]=="true":
                 screen.blit(images[i],(imgdata[i]["x"],imgdata[i]["y"]))
+            elif imgdata[i]["display"][0]=="touching":
+                if imgdata[i]["display"][1]=="Node" and nowtouching.type=="Node":
+                    screen.blit(images[i],(imgdata[i]["x"],imgdata[i]["y"]))
     except:
         raise JsonFileError("window.json解析失败")
 

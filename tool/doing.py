@@ -81,6 +81,12 @@ def redo () -> None:
             doinglist.append(undolist[-1])
             del undolist[-1]
 
+def edit() -> None:
+    nowtouching.type="Edit"
+    nownode=findnode(nowtouching.args["id"])
+    ret=getsettingwindow("修改配置",int(nownode.x),int(nownode.y))
+    nownode.setxy(int(ret[0]),int(ret[1]))
+
 def saveslcm() -> bool:
     if getprojectsavepath()=="":
         savepath=filesavewindow("保存项目文件",[("SLCM文件项目","*.slcm")],".slcm")

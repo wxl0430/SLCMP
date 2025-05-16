@@ -6,6 +6,7 @@ from tool.color import *
 from tool.doing import *
 from tool.id import *
 from tool.xyconverter import *
+from tool.stringconverter import *
 from tool.tkwindow import *
 from tool.image.icon import *
 from tool.image.png import *
@@ -16,14 +17,12 @@ from body.drawscreen import *
 from body.drawui import *
 import pygame
 import time
-
 def main():
     try:
         window_settings = read_json('setting/window.json')
         height = window_settings["height"]
         width = window_settings["width"]
         title = window_settings["title"]
-        # data_images = window_settings["images"]
     except:
         raise JsonFileError("window.json解析失败")
 
@@ -42,7 +41,6 @@ def main():
     init_doing()
     init_draw()
     init_tkwindow()
-
 
     running = True
     while running:
