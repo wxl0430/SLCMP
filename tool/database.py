@@ -8,16 +8,21 @@ if 'nowtouching' not in globals():
 
 def init_database(window_settings : dict) -> None:
     global bgcolor, data, screenx, screeny, scaling, built_in_scaling, step_size, step_size_coefficient, keep_not_move_tick, mousewheel_speed
-    global scaling_step_size, width, height, guide_line_scan_distance, projectsavepath, saved
+    global scaling_step_size, width, height, guide_line_scan_distance, projectsavepath, saved , oldest_width, oldest_height #, old_built_in_scaling
+    global screenscaling
     bgcolor = "#ffffff"
     data = {"node":[],"line":[]}
     width = window_settings["width"]
     height = window_settings["height"]
+    oldest_width = window_settings["width"]
+    oldest_height = window_settings["height"]
     screenx = int(window_settings["width"]/2)
     screeny = int(window_settings["height"]/2)
+    screenscaling=width/oldest_width
     scaling = 100
     guide_line_scan_distance = window_settings["guide_line_scan_distance"]
     built_in_scaling = int(window_settings["built_in_scaling"])
+    # old_built_in_scaling = int(window_settings["built_in_scaling"])
     step_size_coefficient = window_settings["step_size_coefficient"]
     step_size = int(scaling*built_in_scaling/100*step_size_coefficient)
     keep_not_move_tick = window_settings["keep_not_move_tick"]
@@ -25,6 +30,29 @@ def init_database(window_settings : dict) -> None:
     scaling_step_size  = window_settings["scaling_step_size"]
     projectsavepath = ""
     saved = True
+
+def screenintconvert(x: int) -> tuple:
+    return int(x*screenscaling)
+
+def screenxyconvert(x : int, y : int) -> tuple:
+    return (int(x*screenscaling), int(y*screenscaling))
+
+def getscreenscaling() -> float:
+    return screenscaling
+
+def updatescreenscaling() -> None:
+    global screenscaling
+    screenscaling=width/oldest_width
+
+def setwidth(new_width : int) -> None:
+    global width
+    width = new_width
+    updatescreenscaling()
+
+def setheight(new_height : int) -> None:
+    global height
+    height = new_height
+    updatescreenscaling()
 
 def getsaved() -> bool:
     return saved
