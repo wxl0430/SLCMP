@@ -96,7 +96,7 @@ def handle_event(screen : pygame.Surface) -> None:
             posy=event.pos[1]
             flag=1
             for i in range(len(Cdata)-1,-1,-1):
-                nowrect=[Cdata[i]["x"],Cdata[i]["y"],Cdata[i]["x"]+Cdata[i]["width"],Cdata[i]["y"]+Cdata[i]["height"]]
+                nowrect=[*screenxyconvert(Cdata[i]["x"],Cdata[i]["y"]),*screenxyconvert(Cdata[i]["x"]+Cdata[i]["width"],Cdata[i]["y"]+Cdata[i]["height"])]
                 if posx>=nowrect[0] and posx<=nowrect[2] and posy>=nowrect[1] and posy<=nowrect[3]:
                     exec(Cdata[i]["doing"])
                     flag=0
@@ -150,6 +150,24 @@ def handle_event(screen : pygame.Surface) -> None:
                 elif nowtouching.type=="Node":
                     findnode(nowtouching.args["id"]).setxy(*getHVxy())
                     setsaved(False)
+        
+        if event.type == pygame.VIDEORESIZE:
+            new_width, new_height = event.w, event.h
+            old_width, old_height = getwidth(), getheight()
+            aspect_ratio = old_width / old_height
+            if new_width > old_width or new_height > old_height: # 放大
+                if new_width / new_height < aspect_ratio:
+                    new_width = int(new_height * aspect_ratio)
+                else:
+                    new_height = int(new_width / aspect_ratio)
+            else: # 缩小
+                if new_width / new_height > aspect_ratio:
+                    new_width = int(new_height * aspect_ratio)
+                else:
+                    new_height = int(new_width / aspect_ratio)
+            screen = pygame.display.set_mode((new_width, new_height), pygame.RESIZABLE)
+            setwidth(new_width)
+            setheight(new_height)
 
     for i in range(4):
         if movescreenkeylist[i]==nowkeepnotmovetick or movescreenkeylist[i]==1:

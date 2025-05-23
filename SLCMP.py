@@ -27,7 +27,7 @@ def main():
         raise JsonFileError("window.json解析失败")
 
     pygame.init()
-    screen = pygame.display.set_mode((width, height))
+    screen = pygame.display.set_mode((width, height),pygame.RESIZABLE)
     pygame.display.set_caption(title)
     pygame.display.set_icon(load_icon('SLCMP.png'))
     pygame.key.stop_text_input()

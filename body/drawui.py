@@ -7,7 +7,8 @@ import os
 from file.json import *
 
 def init_drawui():
-    global images,imgdata,imgcwd,cwd
+    global images,imgdata,imgcwd,cwd,lastscreenscaling
+    lastscreenscaling=1.0
     cwd = os.getcwd() + "/"
     imgcwd = cwd + "image/"
     try:
@@ -24,8 +25,18 @@ def init_drawui():
  |
 \ /
 '''
+def convertimages() -> None:
+    global images
+    del images[:]
+    images=[]
+    for i in imgdata:
+        images.append(load_png("image/"+i["name"]))
+    for i in range(len(images)):
+        images[i]=pygame.transform.scale(images[i],screenxyconvert(imgdata[i]["width"],imgdata[i]["height"]))
 
 def drawtext(screen, text : str, x : int, y : int, size : int, color : tuple, topplace : str = "center",fontname : str = "Consolas") -> None:
+    x, y = screenxyconvert(x,y)
+    size = screenintconvert(size)
     font = pygame.font.SysFont(fontname, size)
     text_surface = font.render(text, True, color)
     text_rect = text_surface.get_rect()
@@ -55,10 +66,10 @@ def puttoollist(screen : pygame.Surface) -> None:
     try:
         for i in range(len(images)):
             if imgdata[i]["display"]=="true":
-                screen.blit(images[i],(imgdata[i]["x"],imgdata[i]["y"]))
+                screen.blit(images[i],screenxyconvert(imgdata[i]["x"],imgdata[i]["y"]))
             elif imgdata[i]["display"][0]=="touching":
                 if imgdata[i]["display"][1]=="Node" and nowtouching.type=="Node":
-                    screen.blit(images[i],(imgdata[i]["x"],imgdata[i]["y"]))
+                    screen.blit(images[i],screenxyconvert(imgdata[i]["x"],imgdata[i]["y"]))
     except:
         raise JsonFileError("window.json解析失败")
 
@@ -70,5 +81,8 @@ def setimgdata(newimgdata: list) -> None:
     imgdata=newimgdata
 
 def drawui(screen : pygame.Surface) -> None:
+    global lastscreenscaling
+    if abs(lastscreenscaling - getscreenscaling()) > 0.0001:
+        convertimages()
     puttoollist(screen)
     drawalltext(screen)
